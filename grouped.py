@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Given data
-data = [54, 56, 57, 60, 62, 63, 64, 65, 66, 67, 69, 70, 72, 73, 74, 74, 76, 78, 85, 88]
+data = [54, 56, 57, 60, 62, 63, 64, 65, 66, 67, 69, 70, 72, 73, 74, 79, 76, 78, 85, 88]
 
 # Step 1: Define the specific class intervals and initialize frequencies
 class_intervals = [(0, 25), (26, 50), (51, 75), (76, 100)]
@@ -16,33 +16,46 @@ for value in data:
             break  # Break once the value is found in the interval
 
 # Step 2: Calculate midpoints for each interval
-midpoints = [(interval[0] + interval[1]) / 2 for interval in class_intervals]
+midpoints = [(low + high) / 2 for low, high in class_intervals]
 
 # Step 3: Calculate statistics
-sum_fiXi = sum(midpoints[i] * frequencies[i] for i in range(len(frequencies)))
 sum_fi = sum(frequencies)
+sum_fiXi = sum(midpoint * frequency for midpoint, frequency in zip(midpoints, frequencies))
 mean = sum_fiXi / sum_fi
-sum_f_xi_minus_mean_sq = sum(frequencies[i] * ((midpoints[i] - mean)**2) for i in range(len(frequencies)))
 
-# Step 4: Print frequency distribution table
+# Step 4: Print frequency distribution table and calculate statistics
 print("Frequency Distribution Table")
-print("----------------------------------------")
-print("Class Interval      |   Frequency")
-print("----------------------------------------")
-for i, interval in enumerate(class_intervals):
-    interval_str = f"{interval[0]} - {interval[1]}"
-    frequency_str = str(frequencies[i])
-    print(f"{interval_str.ljust(20)}|   {frequency_str.rjust(10)}")
-print("----------------------------------------")
+print("------------------------------------------------------------------------------------------------------------")
+print("Class Interval |        Frequency(f) | Midpoint(Xi) |    f*Xi     |  xi-mean   | (xi-mean)^2  | f(xi-mean)^2")
+print("------------------------------------------------------------------------------------------------------------")
+
+sum_fximean2 = 0
+sum_fXi = 0
+
+for (low, high), frequency, midpoint in zip(class_intervals, frequencies, midpoints):
+    interval_str = f"{low} - {high}"
+    fXi = frequency * midpoint
+    xi_minus_mean = midpoint - mean
+    xi_minus_mean2 = xi_minus_mean ** 2
+    f_xi_minus_mean2 = frequency * xi_minus_mean2
+    sum_fximean2 += f_xi_minus_mean2
+    sum_fXi += fXi
+    
+    print(f"{interval_str.ljust(16)}|{str(frequency).rjust(20)}|  {str(midpoint).rjust(12)}| {str(fXi).rjust(12)}|{str(xi_minus_mean).rjust(12)}|{str(xi_minus_mean2).rjust(14)}|{str(f_xi_minus_mean2).rjust(13)}")
+
+print("------------------------------------------------------------------------------------------------------------")
+print(f"                        {str(sum_fi).rjust(13)}|{str().rjust(14)}|{str(sum_fXi).rjust(13)}|{str().rjust(27)}|{str(sum_fximean2).rjust(13)}")
+
+
 
 # Step 5: Print statistics
-print(f"Sum of frequency: {sum_fi}")
+print(f"\nSum of frequency: {sum_fi}")
 print(f"Sum of frequency and midpoint: {sum_fiXi}")
 print(f"Mean: {mean}")
-print(f"\nΣ f(x_i - mean)^2: {sum_f_xi_minus_mean_sq}") 
+print(f"\nΣ f(x_i - mean)^2: {sum_fximean2}")
 
 # Step 6: Calculate variance and continue with existing code
-variance = (sum_f_xi_minus_mean_sq / sum_fi)
+variance = (sum_fximean2 / sum_fi)
 std_deviation = np.sqrt(variance)
 coefficient_of_variation = (std_deviation / mean) * 100
 
