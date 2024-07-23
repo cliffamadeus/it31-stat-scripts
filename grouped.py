@@ -25,9 +25,9 @@ mean = sum_fiXi / sum_fi
 
 # Step 4: Print frequency distribution table and calculate statistics
 print("Frequency Distribution Table")
-print("------------------------------------------------------------------------------------------------------------")
-print("Class Interval |        Frequency(f) | Midpoint(Xi) |    f*Xi     |  xi-mean   | (xi-mean)^2  | f(xi-mean)^2")
-print("------------------------------------------------------------------------------------------------------------")
+print("-----------------------------------------------------------------------------------------------------")
+print("Class Interval      | Frequency(f) | Midpoint(Xi) |    f*Xi     |  xi-mean   | (xi-mean)^2  | f(xi-mean)^2")
+print("-----------------------------------------------------------------------------------------------------")
 
 sum_fximean2 = 0
 sum_fXi = 0
@@ -41,10 +41,10 @@ for (low, high), frequency, midpoint in zip(class_intervals, frequencies, midpoi
     sum_fximean2 += f_xi_minus_mean2
     sum_fXi += fXi
     
-    print(f"{interval_str.ljust(16)}|{str(frequency).rjust(20)}|  {str(midpoint).rjust(12)}| {str(fXi).rjust(12)}|{str(xi_minus_mean).rjust(12)}|{str(xi_minus_mean2).rjust(14)}|{str(f_xi_minus_mean2).rjust(13)}")
+    print(f"{interval_str.ljust(20)}|{str(frequency).rjust(13)}|{midpoint:12.3f}|{fXi:12.3f}|{xi_minus_mean:12.3f}|{xi_minus_mean2:14.3f}|{f_xi_minus_mean2:18.3f}")
 
-print("------------------------------------------------------------------------------------------------------------")
-print(f"                        {str(sum_fi).rjust(13)}|{str().rjust(14)}|{str(sum_fXi).rjust(13)}|{str().rjust(27)}|{str(sum_fximean2).rjust(13)}")
+print("-----------------------------------------------------------------------------------------------------")
+print(f"Total               |{str(sum_fi).rjust(13)}|{str().rjust(12)}|{sum_fXi:12.3f}|{str().rjust(12)}|{str().rjust(14)}|{sum_fximean2:18.3f}")
 
 
 
