@@ -2,18 +2,13 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Given data
-data = [54, 56, 57, 60, 62, 63, 64, 65, 66, 67, 69, 70, 72, 73, 74, 79, 76, 78, 85, 88]
+#data = [54, 56, 57, 60, 62, 63, 64, 65, 66, 67, 69, 70, 72, 73, 74, 79, 76, 78, 85, 88]
 
 # Step 1: Define the specific class intervals and initialize frequencies
-class_intervals = [(0, 25), (26, 50), (51, 75), (76, 100)]
-frequencies = [0] * len(class_intervals)
+class_intervals = [(1, 9), (10, 19), (20, 29), (30, 39), (40, 49), (50, 59), (60, 69), (70, 79), (80, 89), (90, 100)]
+frequencies = [5, 8, 12, 6, 9, 15, 10, 7, 11, 14]
 
-# Populate frequencies
-for value in data:
-    for i, interval in enumerate(class_intervals):
-        if interval[0] <= value <= interval[1]:
-            frequencies[i] += 1
-            break  # Break once the value is found in the interval
+#frequencies = [0] * len(class_intervals)
 
 # Step 2: Calculate midpoints for each interval
 midpoints = [(low + high) / 2 for low, high in class_intervals]
